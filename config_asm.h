@@ -45,7 +45,7 @@
 // where the body is Intel style with no prefix and the templates are
 // AT&T style. Define this if the Makefile misdetects the configuration.
 // Also see https://bugs.llvm.org/show_bug.cgi?id=39895 .
-// #define CRYPTOPP_DISABLE_MIXED_ASM 1
+#define CRYPTOPP_DISABLE_MIXED_ASM 1
 
 #if defined(__clang__) || (defined(__APPLE__) && defined(__GNUC__)) || defined(__SUNPRO_CC)
 # undef CRYPTOPP_DISABLE_MIXED_ASM
