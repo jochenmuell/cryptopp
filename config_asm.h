@@ -45,7 +45,7 @@
 // where the body is Intel style with no prefix and the templates are
 // AT&T style. Define this if the Makefile misdetects the configuration.
 // Also see https://bugs.llvm.org/show_bug.cgi?id=39895 .
-#define CRYPTOPP_DISABLE_MIXED_ASM 1
+// #define CRYPTOPP_DISABLE_MIXED_ASM 1
 
 #if defined(__clang__) || (defined(__APPLE__) && defined(__GNUC__)) || defined(__SUNPRO_CC)
 # undef CRYPTOPP_DISABLE_MIXED_ASM
@@ -78,7 +78,7 @@
 // Guard everything in CRYPTOPP_DISABLE_ASM
 #if !defined(CRYPTOPP_DISABLE_ASM)
 
-#if (defined(_MSC_VER) && defined(_M_IX86)) || ((defined(__GNUC__) && (defined(__i386__)) || defined(__x86_64__)))
+#if (defined(CRYPTOPP_MSC_VERSION) && defined(_M_IX86)) || ((defined(__GNUC__) && (defined(__i386__)) || defined(__x86_64__)))
 	// C++Builder 2010 does not allow "call label" where label is defined within inline assembly
 	#define CRYPTOPP_X86_ASM_AVAILABLE 1
 
@@ -91,9 +91,7 @@
 	#endif
 #endif
 
-#if defined(_MSC_VER) && defined(_M_X64)
-	#define CRYPTOPP_X64_MASM_AVAILABLE 1
-#endif
+#define CRYPTOPP_X64_MASM_AVAILABLE 1
 
 #if defined(__GNUC__) && defined(__x86_64__)
 	#define CRYPTOPP_X64_ASM_AVAILABLE 1
