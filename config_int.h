@@ -215,35 +215,8 @@ CRYPTOPP_CONST_OR_CONSTEXPR lword LWORD_MAX = W64LIT(0xffffffffffffffff);
 #else
 	// define hword, word, and dword. these are used for multiprecision integer arithmetic
 	// Intel compiler won't have _umul128 until version 10.0. See http://softwarecommunity.intel.com/isn/Community/en-US/forums/thread/30231625.aspx
-	#if (defined(CRYPTOPP_MSC_VERSION) && (!defined(__INTEL_COMPILER) || __INTEL_COMPILER >= 1000) && (defined(_M_X64) || defined(_M_IA64))) || (defined(__DECCXX) && defined(__alpha__)) || (defined(__INTEL_COMPILER) && defined(__x86_64__)) || (defined(__SUNPRO_CC) && defined(__x86_64__))
 		typedef word32 hword;
 		typedef word64 word;
-	#else
-		#define CRYPTOPP_NATIVE_DWORD_AVAILABLE 1
-		#if defined(__alpha__) || defined(__ia64__) || defined(_ARCH_PPC64) || defined(__x86_64__) || defined(__mips64) || defined(__sparc64__) || defined(__aarch64__)
-			#if ((CRYPTOPP_GCC_VERSION >= 30400) || (CRYPTOPP_LLVM_CLANG_VERSION >= 30000) || (CRYPTOPP_APPLE_CLANG_VERSION >= 40300)) && (__SIZEOF_INT128__ >= 16)
-				// GCC 4.0.1 on MacOS X is missing __umodti3 and __udivti3
-				// GCC 4.8.3 and bad uint128_t ops on PPC64/POWER7 (Issue 421)
-				// mode(TI) division broken on amd64 with GCC earlier than GCC 3.4
-				typedef word32 hword;
-				typedef word64 word;
-				typedef __uint128_t dword;
-				typedef __uint128_t word128;
-				#define CRYPTOPP_WORD128_AVAILABLE 1
-			#else
-				// if we're here, it means we're on a 64-bit CPU but we don't have a way to obtain 128-bit multiplication results
-				typedef word16 hword;
-				typedef word32 word;
-				typedef word64 dword;
-			#endif
-		#else
-			// being here means the native register size is probably 32 bits or less
-			#define CRYPTOPP_BOOL_SLOW_WORD64 1
-			typedef word16 hword;
-			typedef word32 word;
-			typedef word64 dword;
-		#endif
-	#endif
 #endif
 
 #ifndef CRYPTOPP_BOOL_SLOW_WORD64

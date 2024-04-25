@@ -110,9 +110,11 @@ NAMESPACE_BEGIN(CryptoPP)
 
 #if defined(CRYPTOPP_ALLOW_RIJNDAEL_UNALIGNED_DATA_ACCESS)
 # if (CRYPTOPP_SSE2_ASM_AVAILABLE || defined(CRYPTOPP_X64_MASM_AVAILABLE)) && !defined(CRYPTOPP_DISABLE_RIJNDAEL_ASM)
+#warning "RDTABLE"
 namespace rdtable {CRYPTOPP_ALIGN_DATA(16) word64 Te[256+2];}
 using namespace rdtable;
 # else
+#warning "NO RDTABLE"
 static word64 Te[256];
 # endif
 static word64 Td[256];
