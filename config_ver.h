@@ -82,7 +82,7 @@
 # define CRYPTOPP_INTEL_VERSION (__INTEL_COMPILER)
 #endif
 
-#if defined(_MSC_VER) && !defined(__clang__)
+#if defined(_MSC_VER)
 # undef CRYPTOPP_LLVM_CLANG_VERSION
 # define CRYPTOPP_MSC_VERSION (_MSC_VER)
 #endif
